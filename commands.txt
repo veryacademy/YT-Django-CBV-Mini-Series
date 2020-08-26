@@ -1,8 +1,0 @@
-####
-Shell commands
-####
-
-py manage.py shell
-from cbv.models import Post
-p = Post(name='name1')
-p.save()exit()

@@ -1,0 +1,48 @@
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="container">
+        <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">All Books</h1>
+            <p class="lead">A range of wonderful programming books to help you learn JavaScript.</p>
+        </div>
+        <div class="py-5">
+            <div class="row">
+                {% for book in books %}
+                <div class="col-md-4">
+                    <a class="text-dark" href="{% url 'books:book-detail' slug=book.slug %}">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h2 style="font-size:18px;font-weight:bold;min-height:42px;">
+                                    {{book.title|truncatechars:50}}</h2>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">{{book.genre}}</small>
+                                    <small class="text-muted">{{book.isbn}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="step-links">
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
